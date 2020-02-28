@@ -496,8 +496,8 @@ private deploy(String cfApiStatement, String cfDeployStatement, config, Closure 
         try {
             sh ''' 
             CF_DIAL_TIMEOUT=15 cf login -a 'https://api.cf.eu10.hana.ondemand.com' -u kumartarun053@gmail.com -p Koka@053 -o P1940751883trial_trial -s dev
-            CF_DIAL_TIMEOUT=15 cf install-plugin multiapps -f
-            CF_DIAL_TIMEOUT=15 cf deploy /var/lib/jenkins/workspace/SCPDeploy_CF_Chat_Local_master/chat_app2.mtar -f
+            cf plugins
+            cf deploy /var/lib/jenkins/workspace/SCPDeploy_CF_Chat_Local_master/chat_app2.mtar -f
             '''
         } catch (e) {
             handleCfCliLog(cfTraceFile)
