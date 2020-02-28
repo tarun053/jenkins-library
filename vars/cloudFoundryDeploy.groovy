@@ -483,7 +483,7 @@ private deploy(String cfApiStatement, String cfDeployStatement, config, Closure 
             export HOME=${config.dockerWorkspace}
             export CF_TRACE=${cfTraceFile}
             ${cfApiStatement ?: ''}
-            cf login -u \"${username}\" -p '${password}' -a ${config.cloudFoundry.apiEndpoint} -o \"${config.cloudFoundry.org}\" -s \"${config.cloudFoundry.space}\" ${config.loginParameters}
+            CF_DIAL_TIMEOUT=30 cf login -u \"${username}\" -p '${password}' -a ${config.cloudFoundry.apiEndpoint} -o \"${config.cloudFoundry.org}\" -s \"${config.cloudFoundry.space}\" ${config.loginParameters}
             cf plugins
             ${cfDeployStatement}
             """
@@ -494,7 +494,9 @@ private deploy(String cfApiStatement, String cfDeployStatement, config, Closure 
         }
 
         try {
-            sh deployScript
+            sh''' 
+            deployScript
+            '''
         } catch (e) {
             handleCfCliLog(cfTraceFile)
 
