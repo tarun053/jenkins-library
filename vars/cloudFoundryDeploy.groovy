@@ -483,9 +483,9 @@ private deploy(String cfApiStatement, String cfDeployStatement, config, Closure 
             export HOME=${config.dockerWorkspace}
             export CF_TRACE=${cfTraceFile}
             ${cfApiStatement ?: ''}
-            CF_DIAL_TIMEOUT=30 cf login -u kumartarun053@gmail.com -p Koka@053 -a https://api.cf.eu10.hana.ondemand.com -o "P1940751883trial_trial" -s "dev"
+            cf login -u \"${username}\" -p '${password}' -a ${config.cloudFoundry.apiEndpoint} -o \"${config.cloudFoundry.org}\" -s \"${config.cloudFoundry.space}\" ${config.loginParameters}
             cf plugins
-            cf deploy /var/lib/jenkins/workspace/SCPDeploy_CF_Chat_Local_master/chat_app2.mtar -f
+            ${cfDeployStatement}
             """
 
         if (config.verbose) {
@@ -494,11 +494,7 @@ private deploy(String cfApiStatement, String cfDeployStatement, config, Closure 
         }
 
         try {
-            sh ''' 
-            CF_DIAL_TIMEOUT=15 cf login -a 'https://api.cf.eu10.hana.ondemand.com' -u kumartarun053@gmail.com -p Koka@053 -o P1940751883trial_trial -s dev
-            cf plugins
-            cf deploy /var/lib/jenkins/workspace/SCPDeploy_CF_Chat_Local_master/chat_app2.mtar -f
-            '''
+            sh deployScript
         } catch (e) {
             handleCfCliLog(cfTraceFile)
 
