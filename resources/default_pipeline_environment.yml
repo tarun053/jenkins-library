@@ -177,7 +177,7 @@ steps:
       dockerImage: 'ppiper/cf-cli'
       dockerWorkspace: '/home/piper'
     mtaDeployPlugin:
-      dockerImage: 'ppiper/cf-cli'
+      dockerImage: 's4sdk/docker-cf-cli'
       dockerWorkspace: '/home/piper'
   containerExecuteStructureTests:
     containerCommand: '/busybox/tail -f /dev/null'
