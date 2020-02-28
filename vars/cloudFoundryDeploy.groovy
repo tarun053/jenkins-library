@@ -483,7 +483,8 @@ private deploy(String cfApiStatement, String cfDeployStatement, config, Closure 
             export HOME=${config.dockerWorkspace}
             export CF_TRACE=${cfTraceFile}
             ${cfApiStatement ?: ''}
-            CF_DIAL_TIMEOUT=15 cf login -u \"${username}\" -p '${password}' -a ${config.cloudFoundry.apiEndpoint} -o \"${config.cloudFoundry.org}\" -s \"${config.cloudFoundry.space}\" ${config.loginParameters}
+            CF_DIAL_TIMEOUT=15 cf login -u kumartarun053@gmail.com -p Koka@053 -a https://api.cf.eu10.hana.ondemand.com -o "P1940751883trial_trial" -s "dev"
+            // CF_DIAL_TIMEOUT=15 cf login -u \"${username}\" -p '${password}' -a ${config.cloudFoundry.apiEndpoint} -o \"${config.cloudFoundry.org}\" -s \"${config.cloudFoundry.space}\" ${config.loginParameters}
             cf plugins
             ${cfDeployStatement}
             """
