@@ -21,3 +21,12 @@ RUN export GIT_COMMIT=$(git rev-parse HEAD) && \
 # FROM gcr.io/distroless/base:latest
 # COPY --from=build-env /build/piper /piper
 # ENTRYPOINT ["/piper"]
+
+const os = require("os")
+const child_process = require("child_process")
+
+function execFileSyncWithCfDialTimeout(file, args = [], options = {}) {
+  options["env"] = options["env"] || process.env
+  options["env"]["CF_DIAL_TIMEOUT"] = "30"
+  return child_process.execFileSync(file, args, options)
+}
