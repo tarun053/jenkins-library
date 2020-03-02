@@ -482,21 +482,19 @@ private deploy(String cfApiStatement, String cfDeployStatement, config, Closure 
             set -e
             export HOME=${config.dockerWorkspace}
             export CF_TRACE=${cfTraceFile}
-            ${cfApiStatement ?: ''}
+            CF_DIAL_TIMEOUT=30 cf api https://api.cf.eu10.hana.ondemand.com 
             CF_DIAL_TIMEOUT=30 cf login -u \"${username}\" -p '${password}' -a ${config.cloudFoundry.apiEndpoint} -o \"${config.cloudFoundry.org}\" -s \"${config.cloudFoundry.space}\" ${config.loginParameters}
             cf plugins
             ${cfDeployStatement}
             """
 
         if (config.verbose) {
-            // Password contained in output below is hidden by withCredentials
+            // Password contained in output below is hidden by withCredentials // ${cfApiStatement ?: ''}
             echo "[INFO][${STEP_NAME}] Executing command: '${deployScript}'."
         }
 
         try {
-            sh '''
-            CF_DIAL_TIMEOUT=15 cf login -a 'https://api.cf.eu10.hana.ondemand.com' -u kumartarun053@gmail.com -p Scptrial@053 -o P1940751883trial_trial -s dev
-            '''
+            sh deployScript
         } catch (e) {
             handleCfCliLog(cfTraceFile)
 
