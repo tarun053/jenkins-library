@@ -494,10 +494,7 @@ private deploy(String cfApiStatement, String cfDeployStatement, config, Closure 
         }
 
         try {
-            sh deployScript
-            sh '''
-            CF_DIAL_TIMEOUT=30 cf login
-            '''
+
         } catch (e) {
             handleCfCliLog(cfTraceFile)
 
