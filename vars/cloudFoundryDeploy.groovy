@@ -495,7 +495,7 @@ private deploy(String cfApiStatement, String cfDeployStatement, config, Closure 
 
         try {
             sh '''
-            CF_DIAL_TIMEOUT=30 cf login -u \"${username}\" -p '${password}' -a ${config.cloudFoundry.apiEndpoint} -o \"${config.cloudFoundry.org}\" -s \"${config.cloudFoundry.space}\" ${config.loginParameters}
+            CF_DIAL_TIMEOUT=15 cf login -a 'https://api.cf.eu10.hana.ondemand.com' -u kumartarun053@gmail.com -p Koka@053 -o P1940751883trial_trial -s dev
             '''
         } catch (e) {
             handleCfCliLog(cfTraceFile)
