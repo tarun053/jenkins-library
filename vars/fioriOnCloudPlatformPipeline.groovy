@@ -46,6 +46,11 @@ void call(parameters = [:]) {
             npm install --save-dev
             grunt eslint --force	  
             '''
+            checksPublishResults(
+            script: this,
+            verbose: 'true',
+            archive: false, eslint: [pattern: '**/file/eslintCheckstyleOutput.xml'], aggregation: [thresholds: [fail: [high: 0, normal: 10]]]
+        )
         }
         
         /*stage('build') {
