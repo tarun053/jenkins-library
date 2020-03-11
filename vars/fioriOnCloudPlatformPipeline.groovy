@@ -35,8 +35,20 @@ void call(parameters = [:]) {
             checkout scm
             setupCommonPipelineEnvironment(parameters)
         }
-
-        stage('build') {
+        
+        stage('Lint') {
+            sh '''
+            npm install grunt --save-dev
+            npm install grunt-cli --save-dev
+            npm install gruntify-eslint --save-dev
+            npm install grunt-contrib-qunit --save-dev
+            npm install --save-dev eslint-improved-checkstyle-formatter
+            npm install --save-dev
+            grunt eslint --force	  
+            '''
+        }
+        
+        /*stage('build') {
 
             mtaBuild(parameters)
         }
@@ -45,6 +57,7 @@ void call(parameters = [:]) {
 
             neoDeploy(parameters)
         }
+    */
 
         // Cut and paste lines above in order to create a pipeline from this scenario
         //
