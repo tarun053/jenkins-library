@@ -49,7 +49,7 @@ void call(parameters = [:]) {
             checksPublishResults(
             script: this,
             verbose: 'true',
-            archive: false, eslint: [pattern: '**/file/eslintCheckstyleOutput.xml'], aggregation: [thresholds: [fail: [high: 0, normal: 10]]]
+            archive: false, eslint: [pattern: '**/eslintCheckstyleOutput.xml'], aggregation: [thresholds: [fail: [high: 0, normal: 10]]]
         )
         }
         
