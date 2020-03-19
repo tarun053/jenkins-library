@@ -1,23 +1,7 @@
-/**
-import static com.sap.piper.Prerequisites.checkScript
 
-import groovy.transform.Field
-
-@Field def STEP_NAME = getClass().getName()
-
-@Field def GENERAL_CONFIG_KEYS = []
-@Field def PARAMETER_KEYS = []
-@Field def STEP_CONFIG_KEYS = [] 
-*/
-
-void call(parameters = [:]) {
-
-    checkScript(this, parameters)
-
-    node(parameters.label) {
+    node(master) {
 
     stage('prepare') {
-
             deleteDir()
             checkout scm
             setupCommonPipelineEnvironment(parameters)
@@ -33,8 +17,7 @@ void call(parameters = [:]) {
                     checksPublishResults(
             script: this,
             verbose: 'true',
-            archive: true, eslint: [pattern: '**/eslintCheckstyleOutput.xml'], aggregation: [thresholds: [fail: [high: 0, normal: 10]]]
-        )
+            archive: true, eslint: [pattern: '**/eslintCheckstyleOutput.xml'], aggregation: [thresholds: [fail: [high: 0, normal: 10]]])
         }
-           }
-}
+       }
+
