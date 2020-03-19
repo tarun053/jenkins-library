@@ -1,5 +1,5 @@
 
-    node(/master') {
+    node('master') {
 
     stage('prepare') {
             deleteDir()
