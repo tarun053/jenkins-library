@@ -1,10 +1,10 @@
 
-    node(master) {
+    node(/master') {
 
     stage('prepare') {
             deleteDir()
             checkout scm
-            setupCommonPipelineEnvironment(parameters)
+            setupCommonPipelineEnvironment script:this
         }
         
         stage('Lint') {
