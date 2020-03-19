@@ -1,1 +1,41 @@
+Skip to content
+Search or jump to…
 
+import static com.sap.piper.Prerequisites.checkScript
+
+import groovy.transform.Field
+
+@Field def STEP_NAME = getClass().getName()
+
+@Field def GENERAL_CONFIG_KEYS = []
+@Field def PARAMETER_KEYS = []
+@Field def STEP_CONFIG_KEYS = []
+
+void call(parameters = [:]) {
+
+    checkScript(this, parameters)
+
+    node(parameters.label) {
+
+    stage('prepare') {
+
+            deleteDir()
+            checkout scm
+            setupCommonPipelineEnvironment(parameters)
+        }
+        
+        stage('Lint') {
+            sh '''
+            grunt eslint --force	  
+            '''
+        }
+        
+        stage('Publish Result') {
+                    checksPublishResults(
+            script: this,
+            verbose: 'true',
+            archive: true, eslint: [pattern: '**/eslintCheckstyleOutput.xml'], aggregation: [thresholds: [fail: [high: 0, normal: 10]]]
+        )
+        }
+           }
+}
