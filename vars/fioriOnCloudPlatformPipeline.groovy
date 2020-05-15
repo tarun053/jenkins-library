@@ -35,25 +35,8 @@ void call(parameters = [:]) {
             checkout scm
             setupCommonPipelineEnvironment(parameters)
         }
-        
-        stage('Lint') {
-            sh '''
-            npm install grunt --save-dev
-            npm install grunt-cli --save-dev
-            npm install gruntify-eslint --save-dev
-            npm install grunt-contrib-qunit --save-dev
-            npm install --save-dev eslint-improved-checkstyle-formatter
-            npm install --save-dev
-            grunt eslint --force	  
-            '''
-            checksPublishResults(
-            script: this,
-            verbose: 'true',
-            archive: false, eslint: [pattern: '**/eslintCheckstyleOutput.xml'], aggregation: [thresholds: [fail: [high: 0, normal: 10]]]
-        )
-        }
-        
-        /*stage('build') {
+
+        stage('build') {
 
             mtaBuild(parameters)
         }
@@ -62,7 +45,6 @@ void call(parameters = [:]) {
 
             neoDeploy(parameters)
         }
-    */
 
         // Cut and paste lines above in order to create a pipeline from this scenario
         //
