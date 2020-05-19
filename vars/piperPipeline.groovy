@@ -11,7 +11,7 @@ void call(parameters) {
         stages {
             stage('Init') {
                 steps {
-                    library 'piper-lib-os'
+                    /*library 'piper-lib-os' ''''''Comment by TK */
                     piperPipelineStageInit script: parameters.script, customDefaults: ['com.sap.piper/pipeline/stageOrdinals.yml'].plus(parameters.customDefaults ?: [])
                 }
             }
